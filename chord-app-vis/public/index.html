@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+
+    <style>
+    body {
+      font: 10px sans-serif;
+    }
+
+    svg text{
+      fill:grey;
+      font-size:11px;
+    }
+    svg .values text{
+      pointer-events:none;
+      stroke-width: 0.5px;
+    }
+    .groups:hover{
+      cursor:pointer;
+      font-weight:bold;
+    }
+
+    </style>
+
+
+
+
+
+  </head>
+  <body>
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="http://vizjs.org/viz.v1.1.0.min.js"></script>
+
+
+    <script>
+
+    list_data = [];
+
+    function rndColor() {
+        var r = ('0' + Math.floor(Math.random() * 256).toString(16)).substr(-2), // red
+            g = ('0' + Math.floor(Math.random() * 256).toString(16)).substr(-2), // green
+            b = ('0' + Math.floor(Math.random() * 256).toString(16)).substr(-2); // blue
+        return '#' + r + g + b;
+    }
+
+    d3.csv("14_febrero_Nombres_F_FINAL_FINAL_boroCD.csv", function(data) {
+      var size_csv = data.length;
+      for (var i=0; i<size_csv; i++){
+          data_temporal = []
+          condicion_more_than_10 = parseFloat(data[i].times);
+          if (condicion_more_than_10>5){
+              data_temporal.push(data[i].id_origin);
+              data_temporal.push(data[i].id_destino);
+              data_temporal.push(parseFloat(data[i].times));
+              list_data.push(data_temporal);
+          }
+      }
+
+      var colors = {};
+
+      for (var i=0; i<list_data.length; i++){
+          colors[list_data[i][0]] = rndColor();
+      }
+
+
+      var sortOrder = [];
+      for (var i=0; i<list_data.length; i++){
+          sortOrder.push(list_data[i][1]);
+      }
+
+      function sort(a,b){ return d3.ascending(sortOrder.indexOf(b),sortOrder.indexOf(a)); }
+
+      var ch = viz.ch().data(list_data)
+         .padding(.2)
+         .sort(sort)
+   	     .innerRadius(200)
+   	     .outerRadius(220)
+   	     .duration(1000)
+   	     .chordOpacity(0.3)
+   	     .labelPadding(.03)
+         .fill(function(d){ return colors[d];});
+
+      var width=2000, height=1400;
+      var svg = d3.select("body").append("svg").attr("height",height).attr("width",width);
+      svg.append("g").attr("transform", "translate(900,350)").call(ch);
+      d3.select(self.frameElement).style("height", height+"px").style("width", width+"px");
+
+    });
+    </script>
+
+    <div id="root"></div>
+
+    <!-- <img src="populationNY.jpg" alt="A funny dog sitting on the grass."> -->
+  </body>
+</html>

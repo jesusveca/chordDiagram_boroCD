@@ -1,0 +1,149 @@
+import json
+from pprint import pprint
+
+def point_in_poly(x,y,poly):
+    n = len(poly)
+    inside = False
+    p1x,p1y = poly[0]
+    for i in range(n+1):
+        p2x,p2y = poly[i % n]
+        if y > min(p1y,p2y):
+            if y <= max(p1y,p2y):
+                if x <= max(p1x,p2x):
+                    if p1y != p2y:
+                        xints = (y-p1y)*(p2x-p1x)/(p2y-p1y)+p1x
+                    if p1x == p2x or x <= xints:
+                        inside = not inside
+        p1x,p1y = p2x,p2y
+    return inside
+
+
+data = json.load(open('boroughs.json'))
+size_boroughs = len(data["features"])
+
+borough_list = []
+
+for x in range(size_boroughs):
+    name_borough = data["features"][x]["properties"]["BoroName"]
+    borough_list.append(str(name_borough))
+
+for x in range (size_boroughs):
+    for y in range(len(data["features"][x]["geometry"]["coordinates"])): # number of polygons presents in each borough      # each_polygon_on_borough = data["features"][x]["geometry"]["coordinates"][y] # each polygon on a borough
+        size_of_one_polygon = len(data["features"][x]["geometry"]["coordinates"][y][0]) # number of elements of each polygon
+        polygon_of_each_borough = data["features"][x]["geometry"]["coordinates"][y][0]
+        point_x = -73.985130
+        point_y = 40.758896
+        print point_in_poly(point_x,point_y,polygon_of_each_borough)
+
+        # for a in range(size_of_one_polygon):
+#             print (data["features"][x]["geometry"]["coordinates"][y][0][a]) # each coordinate
+        print "\n \n \n \n \n \n \n \n \n \n"
+#     print "\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n"
+
+
+
+
+
+
+# m = (data["features"][0]["geometry"]["coordinates"][0][0])
+# print m
+
+# polygon2 = [( -74.053140368211089, 40.577702715545755 ), ( -74.054060449398747, 40.577116445238872 ), ( -74.054897782108043, 40.577782440919812 ), ( -74.054693169074866, 40.579691632229434 ), ( -74.054851346253912, 40.579707593077607 ), ( -74.054845600521745, 40.579945791427605 ), ( -74.053686291504192, 40.580548759614409 ), ( -74.052931906398172, 40.57990247466585 ), ( -74.053140368211089, 40.577702715545755 )]
+# # print type(polygon2)
+# # print polygon2
+#
+# point_x = -74.05066714822921
+# # print type(point_x)
+# point_y = 40.566550203047710
+
+## Call the function with the points and the polygon
+# print point_in_poly(point_x,point_y,m)
+
+
+
+
+
+
+
+
+#
+#
+# from shapely.geometry import Point
+# from shapely.geometry.polygon import Polygon
+#
+# # point = Point(2, 0.5)
+# # polygon = Polygon([(0, 0), (0, 1), (1, 1), (1, 0)])
+# # print(polygon.contains(point))
+#
+# polygon_string = "[ -74.053140368211089, 40.577702715545755 ], [ -74.054060449398747, 40.577116445238872 ], [ -74.054897782108043, 40.577782440919812 ], [ -74.054693169074866, 40.579691632229434 ], [ -74.054851346253912, 40.579707593077607 ], [ -74.054845600521745, 40.579945791427605 ], [ -74.053686291504192, 40.580548759614409 ], [ -74.052931906398172, 40.57990247466585 ], [ -74.053140368211089, 40.577702715545755 ]"
+# polygon_string = polygon_string.replace('[','(')
+# polygon_string = polygon_string.replace(']',')')
+#
+# polygon_a = "["+polygon_string+"]"
+# print polygon_a
+# # polygon = Polygon(polygon_a);
+# #
+# # print polygon_string
+
+
+
+#
+# def point_in_poly(x,y,poly):
+#
+#     n = len(poly)
+#     inside = False
+#
+#     p1x,p1y = poly[0]
+#     for i in range(n+1):
+#         p2x,p2y = poly[i % n]
+#         if y > min(p1y,p2y):
+#             if y <= max(p1y,p2y):
+#                 if x <= max(p1x,p2x):
+#                     if p1y != p2y:
+#                         xints = (y-p1y)*(p2x-p1x)/(p2y-p1y)+p1x
+#                     if p1x == p2x or x <= xints:
+#                         inside = not inside
+#         p1x,p1y = p2x,p2y
+#
+#     return inside
+#
+# ## Test
+#
+# polygon_string = "[ -74.053140368211089, 40.577702715545755 ], [ -74.054060449398747, 40.577116445238872 ], [ -74.054897782108043, 40.577782440919812 ], [ -74.054693169074866, 40.579691632229434 ], [ -74.054851346253912, 40.579707593077607 ], [ -74.054845600521745, 40.579945791427605 ], [ -74.053686291504192, 40.580548759614409 ], [ -74.052931906398172, 40.57990247466585 ], [ -74.053140368211089, 40.577702715545755 ]"
+# polygon_string = polygon_string.replace('[','(')
+# polygon_string = polygon_string.replace(']',')')
+#
+#
+#
+# # from decimal import Decimal
+# #
+# # def str_to_float_with_precision(item):
+# #     precision = 2
+# #     return float(Decimal(item, precision))
+# #
+# # items = ['17.215121', '33.40', '24.39', '3.48', '1.02', '0.61', '18.03', '1.84']
+# #
+# # floated_items = map(str_to_float_with_precision, items)
+# # print floated_items
+#
+#
+# # print my_list_polygons
+# # print my_list_polygons
+# # my_list_polygons = map(float, my_list_polygons)
+#
+#
+# # print type(my_list_polygons)
+# # print my_list_polygons
+#
+#
+#
+# polygon2 = [( -74.053140368211089, 40.577702715545755 ), ( -74.054060449398747, 40.577116445238872 ), ( -74.054897782108043, 40.577782440919812 ), ( -74.054693169074866, 40.579691632229434 ), ( -74.054851346253912, 40.579707593077607 ), ( -74.054845600521745, 40.579945791427605 ), ( -74.053686291504192, 40.580548759614409 ), ( -74.052931906398172, 40.57990247466585 ), ( -74.053140368211089, 40.577702715545755 )]
+# # print type(polygon2)
+# # print polygon2
+#
+# point_x = -74.053140368211089
+# # print type(point_x)
+# point_y = 40.577702715545755
+
+## Call the function with the points and the polygon
+# print point_in_poly(point_x,point_y,polygon2)

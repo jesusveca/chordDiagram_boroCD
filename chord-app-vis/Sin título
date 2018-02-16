@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+
+    <style>
+    body {
+      font: 10px sans-serif;
+    }
+
+    svg text{
+      fill:grey;
+      font-size:11px;
+    }
+    svg .values text{
+      pointer-events:none;
+      stroke-width: 0.5px;
+    }
+    .groups:hover{
+      cursor:pointer;
+      font-weight:bold;
+    }
+    </style>
+  </head>
+  <body>
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="http://vizjs.org/viz.v1.1.0.min.js"></script>
+    <!-- <script>
+
+    var data =
+    [['Arsenal','Aston Villa',6]
+    ,['Arsenal','Liverpool',3]
+    ,['Arsenal','Manchester City',4]
+    ,['Aston Villa','Arsenal',4]
+    ,['Aston Villa','Liverpool',2]
+    ,['Aston Villa','Manchester City',3]
+    ,['Liverpool','Arsenal',3]
+    ,['Liverpool','Aston Villa',9]
+    ,['Liverpool','Manchester City',7]
+    ,['Manchester City','Arsenal',3]
+    ,['Manchester City','Aston Villa',4]
+    ,['Manchester City','Liverpool',1]
+    ];
+
+    var colors = {
+    "Arsenal":         "#da4480"
+    ,"Aston Villa":    "#5ab449"
+    ,"Liverpool":      "#45c0bc"
+    ,"Manchester City":"#ce5929"
+    };
+
+    var sortOrder =[
+    "Liverpool"
+    ,"Arsenal"
+    ,"Aston Villa"
+    ,"Manchester City"
+    ];
+
+    function sort(a,b){ return d3.ascending(sortOrder.indexOf(a),sortOrder.indexOf(b)); }
+
+    var ch = viz.ch().data(data)
+          .padding(.01)
+          .sort(sort)
+    	  .innerRadius(430)
+    	  .outerRadius(450)
+    	  .duration(1000)
+    	  .chordOpacity(0.3)
+    	  .labelPadding(.03)
+          .fill(function(d){ return colors[d];});
+
+    var width=1200, height=1100;
+
+    var svg = d3.select("body").append("svg").attr("height",height).attr("width",width);
+
+    svg.append("g").attr("transform", "translate(600,550)").call(ch);
+
+    d3.select(self.frameElement).style("height", height+"px").style("width", width+"px");
+    </script> -->
+
+    <script>
+
+        d3.json("boroughs.json", function(error, data) {
+          // var nombre_borough = data.features[0].properties.BoroName;
+          // var coordenadas_rect = data.features[0].geometry.coordinates[3];
+          // var coordenadas_rect_2 = coordenadas_rect[0][100];
+          // console.log(coordenadas_rect_2);
+          var temp1 = data.features[0].geometry.coordinates[3];
+
+
+          var size2 = data.features[0].geometry.coordinates.length; // lenght of first position in geoJson = Staten Island
+
+          var count_borough = Object.keys(data.features).length; // determine how many boroughs exists in ny geojson
+          var boroughs_names = [];
+          // for (var i=0; i<count_borough; i++) { // iterar a traves de los boroughs de Ny que son 5
+          //     var temp1 = data.features[i].properties.BoroName; // get the names of boroughs
+          //     boroughs_names.push(temp1); // add boroughs names to array
+          // }
+
+
+          for (var i=0; i<2; i++) { // iterar a traves de los boroughs de Ny que son 5
+              var size_of_each_borough = data.features[i].geometry.coordinates.length;
+              for (var j=0; j<size_of_each_borough; j++){
+                  var each_part_of_one_borough = data.features[i].geometry.coordinates[j];
+                  var size_of_one_borough = Object.keys(each_part_of_one_borough[0]).length;
+                  for (var k=0; k<size_of_one_borough; k++){ // iterar por cada elemento coordenada
+                      var each_coordenate = each_part_of_one_borough[0][k];
+                      var long = each_coordenate[Object.keys(each_coordenate)[0]];
+                      console.log(long);
+                  }
+                  console.log("\n");
+                  console.log("\n");
+                  console.log("\n");
+                  console.log("\n");
+              }
+              console.log("\n");
+              console.log("\n");
+          }
+
+
+
+
+
+
+
+
+          // console.log(data.features[0].lenght);
+          // console.log(size2);
+
+          // var size1 = temp1[0].length;
+          // console.log(size1);
+
+          // for (var i=8800; i<size1; i++){
+          //     console.log(temp1[0][i]);
+          // }
+
+          // console.log(temp1[0][8909]);
+
+
+        });
+    </script>
+
+
+
+
+
+    <div id="root"></div>
+  </body>
+</html>
