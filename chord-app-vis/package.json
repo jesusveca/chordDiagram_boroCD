@@ -1,6 +1,6 @@
 {
   "name": "chord-app-vis",
-  "homepage": "http://jesusveca.github.io/chord-trips_NYcity",
+  "homepage": "http://jesusveca.github.io/chordDiagram_boroCD",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
