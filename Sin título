@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+
+    <style>
+    body {
+      font: 10px sans-serif;
+    }
+
+    svg text{
+      fill:grey;
+      font-size:11px;
+    }
+    svg .values text{
+      pointer-events:none;
+      stroke-width: 0.5px;
+    }
+    .groups:hover{
+      cursor:pointer;
+      font-weight:bold;
+    }
+    </style>
+  </head>
+  <body>
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="http://vizjs.org/viz.v1.1.0.min.js"></script>
+
+
+    <script>
+    var data =
+    [['Arsenal','Aston Villa',6]
+    ,['Arsenal','Liverpool',3]
+    ,['Arsenal','Manchester City',4]
+    ,['Aston Villa','Arsenal',4]
+    ,['Aston Villa','Liverpool',2]
+    ,['Aston Villa','Manchester City',3]
+    ,['Liverpool','Arsenal',3]
+    ,['Liverpool','Aston Villa',9]
+    ,['Liverpool','Manchester City',7]
+    ,['Manchester City','Arsenal',3]
+    ,['Manchester City','Aston Villa',4]
+    ,['Manchester City','Liverpool',1]
+    ];
+
+    var colors = {
+    "Arsenal":         "#da4480"
+    ,"Aston Villa":    "#5ab449"
+    ,"Liverpool":      "#45c0bc"
+    ,"Manchester City":"#ce5929"
+    };
+
+    var sortOrder =[
+    "Liverpool"
+    ,"Arsenal"
+    ,"Aston Villa"
+    ,"Manchester City"
+    ];
+
+    function sort(a,b){ return d3.ascending(sortOrder.indexOf(a),sortOrder.indexOf(b)); }
+
+    var ch = viz.ch().data(data)
+          .padding(.01)
+          .sort(sort)
+    	  .innerRadius(430)
+    	  .outerRadius(450)
+    	  .duration(1000)
+    	  .chordOpacity(0.3)
+    	  .labelPadding(.03)
+          .fill(function(d){ return colors[d];});
+
+    var width=1200, height=1100;
+
+    var svg = d3.select("body").append("svg").attr("height",height).attr("width",width);
+
+    svg.append("g").attr("transform", "translate(600,550)").call(ch);
+
+    d3.select(self.frameElement).style("height", height+"px").style("width", width+"px");
+    </script>
+
+    <div id="root"></div>
+  </body>
+</html>

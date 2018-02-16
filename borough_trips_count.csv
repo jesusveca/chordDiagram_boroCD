@@ -1,0 +1,26 @@
+Origin,Destination,Times
+Staten Island,Staten Island,0
+Staten Island,Queens,0
+Staten Island,Brooklyn,0
+Staten Island,Manhattan,0
+Staten Island,Bronx,0
+Queens,Queens,204
+Queens,Staten Island,1
+Queens,Brooklyn,55
+Queens,Manhattan,294
+Queens,Bronx,8
+Brooklyn,Brooklyn,203
+Brooklyn,Staten Island,0
+Brooklyn,Queens,25
+Brooklyn,Manhattan,137
+Brooklyn,Bronx,0
+Manhattan,Manhattan,7538
+Manhattan,Staten Island,5
+Manhattan,Queens,635
+Manhattan,Brooklyn,491
+Manhattan,Bronx,72
+Bronx,Bronx,8
+Bronx,Staten Island,0
+Bronx,Queens,0
+Bronx,Brooklyn,0
+Bronx,Manhattan,2
